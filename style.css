@@ -1,0 +1,23 @@
+@import url("./node_modules/@glidejs/glide/dist/css/glide.core.min.css");
+@import url("./node_modules/@glidejs/glide/dist/css/glide.theme.min.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.active {
+  @apply text-white bg-gray-900;
+}
+
+.scroll-box::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-box {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.added {
+  @apply bg-gray-800 text-white
+}

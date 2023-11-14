@@ -1,0 +1,22 @@
+{
+  "name": "libraries",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5",
+    "vite": "^4.5.0"
+  },
+  "dependencies": {
+    "@glidejs/glide": "^3.6.0",
+    "animate.css": "^4.1.1",
+    "flowbite": "^2.1.1"
+  }
+}
