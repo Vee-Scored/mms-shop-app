@@ -250,4 +250,4 @@ export const products = [
   ]
 
   //prepare empty cart array to store user's selected products and render in cart slide;
-  export const cart = []
+  export const cart = [];

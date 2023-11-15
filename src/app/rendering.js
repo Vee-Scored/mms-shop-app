@@ -1,10 +1,14 @@
+import { cart, products } from "../cores/data";
 import {
   cardContainer,
+  cartBody,
+  cartProductTemplate,
   categoryBox,
   categoryTemplate,
   productCardTemplate,
   starTemplate,
 } from "../cores/selectors";
+import { addedButton } from "./functions";
 import { addToCartBtnHandler, categoryBtnHandler } from "./handlers";
 
 export const createStar = (rate) => {
@@ -56,9 +60,12 @@ export const createProductCards = ({
   const productRatingStar = cloneProductCard.querySelector(
     ".product-card-rating-star"
   );
-  const productCardRatingRate = cloneProductCard.querySelector('.product-card-rating-rate')
-  const productCardRatingCount = cloneProductCard.querySelector('.product-card-rating-count')
-
+  const productCardRatingRate = cloneProductCard.querySelector(
+    ".product-card-rating-rate"
+  );
+  const productCardRatingCount = cloneProductCard.querySelector(
+    ".product-card-rating-count"
+  );
 
   cloneProductCard.setAttribute("product-card-id", id);
   productImg.src = image;
@@ -67,9 +74,13 @@ export const createProductCards = ({
   productPrice.innerText = price;
   productRatingStar.innerHTML = createStar(rate);
   productCardRatingCount.innerText = count;
-  productCardRatingRate.innerText = Math.round(rate)
+  productCardRatingRate.innerText = Math.round(rate);
 
-  addToCartBtn.addEventListener("click", addToCartBtnHandler);
+  const isExistedInCart = cartBody.querySelector(`[cart-product-id = '${id}']`);
+
+  if (isExistedInCart) {
+    addedButton(addToCartBtn);
+  }
 
   return cloneProductCard;
 };
@@ -94,8 +105,8 @@ export const productCardRender = (productArray, category = "All") => {
         );
       }
     );
-    
-    console.log('category:','All')
+
+    console.log("category:", "All");
   } else {
     filteredArray.forEach(
       ({ id, title, price, description, image, rating: { rate, count } }) => {
@@ -112,7 +123,39 @@ export const productCardRender = (productArray, category = "All") => {
       }
     );
   }
+};
 
- 
-  console.log('clicked2')
+export const createCartProduct = ({
+  id,
+  title,
+  price,
+  quantity,
+  image,
+  totalAmount = price,
+}) => {
+  const clone = cartProductTemplate.content.cloneNode(true);
+  const cartProduct = clone.querySelector(".cart-product-card");
+  const cartProductImage = cartProduct.querySelector(".cart-product-image");
+  const cartProductTitle = cartProduct.querySelector(".cart-product-title");
+  const cartProductPrice = cartProduct.querySelector(".cart-product-price");
+  const cartProductQuantity = cartProduct.querySelector(
+    ".cart-product-quantity"
+  );
+
+  cartProduct.setAttribute("cart-product-id", id);
+  cartProductImage.src = image;
+  cartProductTitle.innerText = title;
+  cartProductQuantity.innerText = quantity;
+  cartProductPrice.innerText = totalAmount.toFixed(2);
+
+  return cartProduct;
+};
+
+export const cartRender = (cartArray) => {
+  cartBody.innerHTML = "";
+  cartArray.forEach(({ id, title, price, quantity, image, totalAmount }) => {
+    cartBody.append(
+      createCartProduct({ id, title, price, quantity, image, totalAmount })
+    );
+  });
 };

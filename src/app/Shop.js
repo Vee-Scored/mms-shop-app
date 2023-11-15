@@ -1,6 +1,14 @@
-import { categories, products } from "../cores/data";
-import { cardContainer, categoryBox } from "../cores/selectors";
-import { addToCartBtnHandler, btnChangesHandler, categoryBtnHandler } from "./handlers";
+import { cart, categories, products } from "../cores/data";
+import { cardContainer, cartBody, categoryBox } from "../cores/selectors";
+import { countTotalBadge, observer } from "./functions";
+import {
+  addToCartBtnHandler,
+  btnChangesHandler,
+  categoryBtnHandler,
+  decreaseBtnHandler,
+  deleteBtnHandler,
+  increaseBtnHandler,
+} from "./handlers";
 import { categoryBtnRender, productCardRender } from "./rendering";
 
 class Shop {
@@ -11,21 +19,35 @@ class Shop {
 
   listener() {
     document.addEventListener("DOMContentLoaded", btnChangesHandler);
-    categoryBox.addEventListener('click',()=>{
-      if (event.target.classList.contains('category-btn')) {
-        categoryBtnHandler()
+    categoryBox.addEventListener("click", () => {
+      if (event.target.classList.contains("category-btn")) {
+        categoryBtnHandler();
       }
-    })
-    cardContainer.addEventListener('click',(event)=>{
-      if (event.target.classList.contains('add-to-cart-button')) {
-        addToCartBtnHandler()
+    });
+
+    cardContainer.addEventListener("click", (event) => {
+      if (event.target.classList.contains("add-to-cart-button")) {
+        addToCartBtnHandler();
       }
-    })
+    });
+
+    cartBody.addEventListener("click", (event) => {
+      if (event.target.classList.contains("cart-product-delete-button")) {
+        deleteBtnHandler();
+      } else if (event.target.classList.contains("increase-quantity")) {
+        increaseBtnHandler();
+      } else if (event.target.classList.contains("decrease-quantity")) {
+        decreaseBtnHandler();
+      }
+    });
   }
 
   init() {
     this.render();
     this.listener();
+    observer;
+    observer.observe(cartBody, { subtree: true, childList: true });
+    countTotalBadge(cart);
   }
 }
 

@@ -7,3 +7,10 @@ export const productCardTemplate = document.querySelector(
 );
 export const addToCartBtn = document.querySelector(".add-to-cart-button");
 export const starTemplate = document.querySelector("#star-template");
+export const cartProductTemplate = document.querySelector(
+  "#cart-product-template"
+);
+export const cartBody = document.querySelector(".cart-body");
+export const cartTotalQuantity = document.querySelector(".cart-total-quantity");
+export const totalInBadge = document.querySelector(".cart-quantity-badge");
+export const cartProductQty = document.querySelector(".cart-product-quantity");
