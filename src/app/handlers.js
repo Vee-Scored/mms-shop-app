@@ -1,6 +1,7 @@
+import Swal from "sweetalert2";
 import { cart, products } from "../cores/data";
-import { cardContainer } from "../cores/selectors";
-import { addedButton } from "./functions";
+import { app, cardContainer, cartBody, cartIcon } from "../cores/selectors";
+import { addedButton, emptyStage } from "./functions";
 import { cartRender, productCardRender } from "./rendering";
 
 export const btnChangesHandler = () => {
@@ -24,7 +25,6 @@ export const addToCartBtnHandler = () => {
   );
 
   const clickedItem = products.find((el) => el.id == selectedProductId);
-  console.log(cartProduct);
 
   cartProduct[0].quantity = 1;
   cartProduct[0].totalAmount = clickedItem.price;
@@ -33,6 +33,42 @@ export const addToCartBtnHandler = () => {
   });
   cartRender(cart);
   addedButton(currentBtn);
+
+  // for image animation
+  const currentImage = selectedProduct.querySelector("img");
+  const currentImageSrc = currentImage.src;
+  const cloneImg = new Image();
+  cloneImg.src = currentImageSrc;
+  cloneImg.id = "clone";
+
+  const currentImageRect = currentImage.getBoundingClientRect();
+  const cartIconRect = cartIcon.getBoundingClientRect();
+  cloneImg.classList.add("fixed", "w-20", "z-40");
+
+  cloneImg.style.left = currentImageRect.left + 120 + "px";
+  cloneImg.style.top = currentImageRect.top + 70 + "px";
+
+  const keyframe = [
+    { transform: "rotate(0)" },
+    {
+      left: cartIconRect.left + 3 + "px",
+      top: cartIconRect.top + 3 + "px",
+      width: 20 + "px",
+      rotate: "2turn",
+    },
+  ];
+
+  console.log(cartIconRect.top);
+  const option = {
+    duration: 500,
+    iterations: 1,
+  };
+
+  const animation = cloneImg.animate(keyframe, option);
+  animation.addEventListener("finish", () => {
+    app.querySelector("#clone").remove();
+  });
+  app.append(cloneImg);
 };
 
 export const categoryBtnHandler = () => {
@@ -45,8 +81,44 @@ export const deleteBtnHandler = () => {
   const currentId = event.target
     .closest(".cart-product-card")
     .getAttribute("cart-product-id");
-  const indexToRemove = cart.findIndex((el) => el.id == currentId);
-  cart.splice(indexToRemove, 1);
+
+  Swal.fire({
+    title: "Sure to delete?",
+    text: "Item will be cleared!",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonText: "Yes, delete it!",
+    customClass: {
+      cancelButton: "!ring-0",
+      popup: "w-80",
+      title: "custom-swal-title",
+      confirmButton: "!bg-gray-800 text-white !ring-0",
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const currentItemInCart = cartBody.querySelector(
+        `[cart-product-id = '${currentId}']`
+      );
+      currentItemInCart.classList.add("animate__animated", "animate__hinge");
+      currentItemInCart.addEventListener("animationend", () => {
+        const indexToRemove = cart.findIndex((el) => el.id == currentId);
+        cart.splice(indexToRemove, 1);
+
+        cartRender(cart);
+        emptyStage(cart);
+      });
+
+      let addToCartBtn = cardContainer.querySelectorAll(".add-to-cart-button");
+
+      addToCartBtn.forEach((btn) => {
+        if (btn.disabled == true) {
+          btn.classList.remove("bg-gray-800", "text-white");
+          btn.disabled = false;
+          btn.innerText = "Add to cart";
+        }
+      });
+    }
+  });
   cartRender(cart);
 };
 

@@ -19,5 +19,9 @@
 }
 
 .added {
-  @apply bg-gray-800 text-white
+  @apply bg-gray-800 text-white;
+}
+
+.swal2-confirm {
+  @apply !bg-gray-800 !ring-0;
 }

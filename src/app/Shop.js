@@ -1,6 +1,11 @@
 import { cart, categories, products } from "../cores/data";
 import { cardContainer, cartBody, categoryBox } from "../cores/selectors";
-import { countTotalBadge, observer } from "./functions";
+import {
+  countTotalBadge,
+  emptyStage,
+  observer,
+  scrollObserver,
+} from "./functions";
 import {
   addToCartBtnHandler,
   btnChangesHandler,
@@ -40,6 +45,8 @@ class Shop {
         decreaseBtnHandler();
       }
     });
+
+    window.addEventListener("scroll", scrollObserver);
   }
 
   init() {
@@ -48,6 +55,7 @@ class Shop {
     observer;
     observer.observe(cartBody, { subtree: true, childList: true });
     countTotalBadge(cart);
+    emptyStage(cart);
   }
 }
 

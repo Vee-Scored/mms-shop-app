@@ -14,3 +14,5 @@ export const cartBody = document.querySelector(".cart-body");
 export const cartTotalQuantity = document.querySelector(".cart-total-quantity");
 export const totalInBadge = document.querySelector(".cart-quantity-badge");
 export const cartProductQty = document.querySelector(".cart-product-quantity");
+export const header = document.querySelector("#header");
+export const cartIcon = document.querySelector("#cart-icon");

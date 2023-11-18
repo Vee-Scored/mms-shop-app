@@ -17,6 +17,7 @@
   "dependencies": {
     "@glidejs/glide": "^3.6.0",
     "animate.css": "^4.1.1",
-    "flowbite": "^2.1.1"
+    "flowbite": "^2.1.1",
+    "sweetalert2": "^11.10.0"
   }
 }
