@@ -1,9 +1,18 @@
 @import url("./node_modules/@glidejs/glide/dist/css/glide.core.min.css");
 @import url("./node_modules/@glidejs/glide/dist/css/glide.theme.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  @apply scroll-smooth
+}
+
+* {
+  font-family: "Montserrat", sans-serif;
+}
 
 .active {
   @apply text-white bg-gray-900;

@@ -85,7 +85,10 @@ export const createProductCards = ({
   return cloneProductCard;
 };
 
+
+export let currentCategory = "All"
 export const productCardRender = (productArray, category = "All") => {
+  cardContainer.innerHTML =""
   const filteredArray = productArray.filter(
     (product) => product.category == category
   );
@@ -105,8 +108,6 @@ export const productCardRender = (productArray, category = "All") => {
         );
       }
     );
-
-    console.log("category:", "All");
   } else {
     filteredArray.forEach(
       ({ id, title, price, description, image, rating: { rate, count } }) => {
@@ -123,6 +124,8 @@ export const productCardRender = (productArray, category = "All") => {
       }
     );
   }
+
+  currentCategory = category;
 };
 
 export const createCartProduct = ({
@@ -159,3 +162,39 @@ export const cartRender = (cartArray) => {
     );
   });
 };
+
+// test
+
+// export const productCardRender = (productArray, category = "All", searchInput = "") => {
+//   const filteredArray = productArray.filter((product) => {
+//     // Check if the product matches the category and contains the search input in the title or description
+//     return (
+//       (category === "All" || product.category === category) &&
+//       (product.title.toLowerCase().includes(searchInput.toLowerCase()) ||
+//         product.description.toLowerCase().includes(searchInput.toLowerCase()))
+//     );
+//   });
+
+//   // Assuming you have a container to append the cards, replace "cardContainer" with your actual container reference
+//   //const cardContainer = document.getElementById("cardContainer");
+
+//   // Clear existing cards before rendering
+//   cardContainer.innerHTML = "";
+
+//   if (filteredArray.length === 0) {
+//     console.log("No matching products found.");
+//   } else {
+//     filteredArray.forEach(({ id, title, price, description, image, rating: { rate, count } }) => {
+//       cardContainer.append(
+//         createProductCards({
+//           id,
+//           title,
+//           price,
+//           description,
+//           image,
+//           rating: { rate, count },
+//         })
+//       );
+//     });
+//   }
+// };

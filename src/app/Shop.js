@@ -1,9 +1,16 @@
 import { cart, categories, products } from "../cores/data";
-import { cardContainer, cartBody, categoryBox } from "../cores/selectors";
+import {
+  cardContainer,
+  cartBody,
+  categoryBox,
+  lgSearchBar,
+  smallSearchBar,
+} from "../cores/selectors";
 import {
   countTotalBadge,
   emptyStage,
   observer,
+  productNotFound,
   scrollObserver,
 } from "./functions";
 import {
@@ -13,6 +20,7 @@ import {
   decreaseBtnHandler,
   deleteBtnHandler,
   increaseBtnHandler,
+  searchBarHandler,
 } from "./handlers";
 import { categoryBtnRender, productCardRender } from "./rendering";
 
@@ -46,6 +54,9 @@ class Shop {
       }
     });
 
+    smallSearchBar.addEventListener("keyup", searchBarHandler);
+    lgSearchBar.addEventListener("keyup",searchBarHandler);
+
     window.addEventListener("scroll", scrollObserver);
   }
 
@@ -56,6 +67,7 @@ class Shop {
     observer.observe(cartBody, { subtree: true, childList: true });
     countTotalBadge(cart);
     emptyStage(cart);
+    productNotFound()
   }
 }
 

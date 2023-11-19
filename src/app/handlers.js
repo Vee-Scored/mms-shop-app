@@ -1,8 +1,8 @@
 import Swal from "sweetalert2";
 import { cart, products } from "../cores/data";
 import { app, cardContainer, cartBody, cartIcon } from "../cores/selectors";
-import { addedButton, emptyStage } from "./functions";
-import { cartRender, productCardRender } from "./rendering";
+import { addedButton, emptyStage, productNotFound } from "./functions";
+import { cartRender, currentCategory, productCardRender } from "./rendering";
 
 export const btnChangesHandler = () => {
   const btns = document.querySelectorAll(".category-btn");
@@ -147,4 +147,20 @@ export const decreaseBtnHandler = () => {
     return;
   }
   cartRender(cart);
+};
+
+export const searchBarHandler = (event) => {
+    let typeValue = event.target.value;
+    console.log(typeValue)
+
+    let filteredArray = products.filter(el => {
+      return  (el.title.toLowerCase().trim().search(typeValue.toLowerCase().trim()) !== -1 || el.description.toLowerCase().trim().search(typeValue.toLowerCase().trim()) !== -1)
+    })
+    if (filteredArray.length !== -1) {
+    productCardRender(filteredArray,currentCategory)
+    } else {
+      productCardRender(products)
+    }
+
+    productNotFound()
 };
