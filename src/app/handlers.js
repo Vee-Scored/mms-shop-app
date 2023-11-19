@@ -160,7 +160,8 @@ export const searchBarHandler = (event) => {
     productCardRender(filteredArray,currentCategory)
     } else {
       productCardRender(products)
+      
     }
-
     productNotFound()
+  
 };

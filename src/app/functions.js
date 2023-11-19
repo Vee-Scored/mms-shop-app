@@ -2,8 +2,9 @@ import { cart, products } from "../cores/data";
 import {
   app,
   cardContainer,
-  cardSection,
+  
   cartBody,
+  cartIcon,
   cartTotalPrice,
   cartTotalQuantity,
   emptySvgTemplate,
@@ -11,7 +12,7 @@ import {
   notFoundSvgTemplate,
   totalInBadge,
 } from "../cores/selectors";
-import { cartRender } from "./rendering";
+import { cartRender, productCardRender } from "./rendering";
 
 export const emptyStage = (array) => {
   if (array.length == 0) {
@@ -28,11 +29,12 @@ export const productNotFound = () => {
   if (items.length == 0) {
     const cloneSvg = notFoundSvgTemplate.content.cloneNode(true);
     const svg = cloneSvg.querySelector("svg");
-    cardSection.classList.add('flex','justify-center','item-center')
-    cardSection.innerHTML = new XMLSerializer().serializeToString(svg);
+    cardContainer.classList.remove('grid')
+    cardContainer.innerHTML = new XMLSerializer().serializeToString(svg);
    d
   } else {
-    cardSection.classList.remove('flex','justify-center','item-center')
+   
+    cardContainer.classList.add('grid')
   }
 };
 
