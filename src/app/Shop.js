@@ -4,6 +4,7 @@ import {
   cartBody,
   categoryBox,
   lgSearchBar,
+  smSearchIcon,
   smallSearchBar,
 } from "../cores/selectors";
 import {
@@ -56,7 +57,11 @@ class Shop {
 
     smallSearchBar.addEventListener("keyup", searchBarHandler);
     lgSearchBar.addEventListener("keyup",searchBarHandler);
-
+    smSearchIcon.addEventListener('click',()=> {
+      setTimeout(() => {
+        smallSearchBar.focus()
+      }, 100);
+    })
     window.addEventListener("scroll", scrollObserver);
   }
 

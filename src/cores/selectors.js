@@ -22,3 +22,4 @@ export const notFoundSvgTemplate = document.querySelector("#not-found-svg-templa
 export const smallSearchBar = document.querySelector(".sm-searchbar");
 export const lgSearchBar = document.querySelector(".lg-searchbar");
 export const cardSection = document.querySelector("#card-section");
+export const smSearchIcon = document.querySelector('#sm-search-icon')

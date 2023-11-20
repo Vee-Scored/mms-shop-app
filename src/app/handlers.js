@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 import { cart, products } from "../cores/data";
-import { app, cardContainer, cartBody, cartIcon } from "../cores/selectors";
+import { app, cardContainer, cartBody, cartIcon, smallSearchBar } from "../cores/selectors";
 import { addedButton, emptyStage, productNotFound } from "./functions";
 import { cartRender, currentCategory, productCardRender } from "./rendering";
 
@@ -150,6 +150,7 @@ export const decreaseBtnHandler = () => {
 };
 
 export const searchBarHandler = (event) => {
+    console.log('ff')
     let typeValue = event.target.value;
     console.log(typeValue)
 
@@ -163,5 +164,5 @@ export const searchBarHandler = (event) => {
       
     }
     productNotFound()
-  
+    
 };
